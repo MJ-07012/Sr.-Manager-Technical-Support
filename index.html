@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marlon Jordan | Candidate for Sr. Manager, Technical Support at Trimble</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Calm Harmony (Slate, Cyan) -->
+    <!-- Application Structure Plan: A single-page narrative SPA designed to visually argue for candidate-role fit. The structure flows from a high-level summary and alignment dashboard to an interactive deep-dive mapping requirements to experience, followed by a career timeline and skills matrix. This non-linear but guided structure allows a recruiter to quickly grasp the value proposition and then explore the supporting details on demand, which is more engaging and persuasive than a static document. -->
+    <!-- Visualization & Content Choices:
+        - Hero: Inform -> Text -> N/A -> Introduces the candidate -> Standard HTML.
+        - Alignment Dashboard: Compare/Inform -> Doughnut Charts (conceptual) -> Hover Tooltips -> Provides a quick, visual summary of fit across key themes -> Chart.js.
+        - Experience Mapping: Relate/Compare -> Two-column interactive list -> Click-to-highlight -> Creates a direct, undeniable link between role needs and candidate experience -> Vanilla JS.
+        - Career Timeline: Change -> Vertical Timeline -> Click-to-expand -> Shows career progression without cluttering the initial view -> HTML/CSS/JS.
+        - Skills Matrix: Organize/Inform -> Grid of Cards -> N/A -> Clearly presents categorized skills and certifications -> HTML/CSS.
+     -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc; 
+        }
+        .chart-container {
+            position: relative;
+            margin: auto;
+            height: 220px;
+            width: 220px;
+        }
+        .highlight {
+            transition: all 0.3s ease-in-out;
+            background-color: #cffafe !important;
+            transform: scale(1.02);
+            box-shadow: 0 4px 14px 0 rgba(0, 191, 255, 0.39);
+        }
+        .nav-link {
+            transition: color 0.3s;
+        }
+        .nav-link:hover {
+            color: #0891b2;
+        }
+        .timeline-item-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-in-out;
+        }
+    </style>
+</head>
+<body class="text-slate-700">
+
+    <header class="bg-white/80 backdrop-blur-md sticky top-0 z-50 shadow-sm">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <div>
+                <h1 class="text-xl font-bold text-slate-800">Marlon Jordan</h1>
+                <p class="text-sm text-slate-500">Sr. Manager, Technical Support Candidate</p>
+            </div>
+            <div class="hidden md:flex space-x-8">
+                <a href="#alignment" class="nav-link font-medium">Alignment</a>
+                <a href="#experience" class="nav-link font-medium">Experience</a>
+                <a href="#timeline" class="nav-link font-medium">Career Journey</a>
+                <a href="#skills" class="nav-link font-medium">Skills</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section id="hero" class="py-20 md:py-32 bg-white">
+            <div class="container mx-auto px-6 text-center">
+                <h2 class="text-4xl md:text-5xl font-bold text-slate-800 mb-4">Aligning a Decade of Experience with Trimble's Vision</h2>
+                <p class="text-lg md:text-xl text-slate-600 max-w-3xl mx-auto mb-6">
+                    A technical support leader with a 10-year record of improving customer satisfaction and team performance through strategic leadership, full-lifecycle employee development, and the implementation of industry best practices.
+                </p>
+                <a href="#alignment" class="bg-cyan-600 text-white font-bold py-3 px-8 rounded-full hover:bg-cyan-700 transition-colors">Explore My Fit</a>
+            </div>
+        </section>
+
+        <section id="alignment" class="py-20">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h3 class="text-3xl font-bold text-slate-800 mb-2">Core Competency Alignment</h3>
+                    <p class="text-lg text-slate-600 max-w-2xl mx-auto">This dashboard provides a high-level view of how my skills and experience directly align with the key pillars of the Sr. Manager role at Trimble.</p>
+                </div>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="bg-white p-6 rounded-lg shadow-lg text-center">
+                        <h4 class="text-xl font-semibold text-slate-800 mb-4">Strategic & Tactical Leadership</h4>
+                        <div class="chart-container">
+                            <canvas id="leadershipChart"></canvas>
+                        </div>
+                        <p class="mt-4 text-slate-600">Extensive experience in coaching, mentoring, managing the employee lifecycle, and enforcing productivity standards.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-lg text-center">
+                        <h4 class="text-xl font-semibold text-slate-800 mb-4">Customer Value & Success</h4>
+                        <div class="chart-container">
+                            <canvas id="customerChart"></canvas>
+                        </div>
+                        <p class="mt-4 text-slate-600">A proven record of improving customer satisfaction, managing high-priority issues, and achieving positive outcomes.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-lg text-center">
+                        <h4 class="text-xl font-semibold text-slate-800 mb-4">Process & Technical Expertise</h4>
+                        <div class="chart-container">
+                            <canvas id="technicalChart"></canvas>
+                        </div>
+                        <p class="mt-4 text-slate-600">Deep knowledge of SaaS, software support, and implementing best practices and new technologies to drive efficiency.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="experience" class="py-20 bg-white">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h3 class="text-3xl font-bold text-slate-800 mb-2">Interactive Experience Mapping</h3>
+                    <p class="text-lg text-slate-600 max-w-3xl mx-auto">This section directly maps Trimble's key requirements to my hands-on experience. Click on any requirement on the left to see the corresponding achievements and responsibilities from my career on the right.</p>
+                </div>
+                <div class="grid lg:grid-cols-2 gap-8 items-start">
+                    <div>
+                        <h4 class="text-2xl font-semibold text-slate-800 mb-4">Trimble Role Requirements</h4>
+                        <div id="requirements-list" class="space-y-3">
+                        </div>
+                    </div>
+                    <div>
+                        <h4 class="text-2xl font-semibold text-slate-800 mb-4">My Relevant Experience</h4>
+                        <div id="experience-list" class="space-y-4">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="timeline" class="py-20">
+            <div class="container mx-auto px-6">
+                 <div class="text-center mb-16">
+                    <h3 class="text-3xl font-bold text-slate-800 mb-2">Career Journey at Bloomberg LP</h3>
+                    <p class="text-lg text-slate-600 max-w-2xl mx-auto">A visual representation of my career progression, showcasing my growth into roles with increasing complexity and leadership responsibility. Click each role to expand its key accomplishments.</p>
+                </div>
+                <div id="career-timeline-container" class="relative max-w-2xl mx-auto">
+                    <div class="absolute left-1/2 h-full w-0.5 bg-slate-300 transform -translate-x-1/2"></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="skills" class="py-20 bg-white">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h3 class="text-3xl font-bold text-slate-800 mb-2">Skills & Certifications</h3>
+                    <p class="text-lg text-slate-600 max-w-2xl mx-auto">A summary of my professional certifications, core competencies, and technical proficiencies that equip me to excel in a technical support leadership role.</p>
+                </div>
+                <div id="skills-grid" class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-slate-800 text-white py-12">
+        <div class="container mx-auto px-6 text-center">
+            <h4 class="text-2xl font-bold mb-2">Marlon Jordan</h4>
+            <p class="mb-4">Thank you for considering my application for the Sr. Manager, Technical Support role.</p>
+            <div class="flex justify-center space-x-6">
+                <a href="mailto:Marlon.Jordan21@gmail.com" class="hover:text-cyan-400 transition-colors">Marlon.Jordan21@gmail.com</a>
+                <a href="https://linkedin.com/in/mj2117" target="_blank" class="hover:text-cyan-400 transition-colors">linkedin.com/in/mj2117</a>
+                <a href="tel:646-249-6025" class="hover:text-cyan-400 transition-colors">(646) 249-6025</a>
+            </div>
+        </div>
+    </footer>
+
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+
+    const chartConfig = {
+        type: 'doughnut',
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            cutout: '70%',
+            plugins: {
+                legend: { display: false },
+                tooltip: { enabled: false }
+            }
+        }
+    };
+
+    const createChart = (ctx, label, data, colors) => {
+        new Chart(ctx, {
+            ...chartConfig,
+            data: {
+                labels: [label, ''],
+                datasets: [{
+                    data: data,
+                    backgroundColor: colors,
+                    borderColor: 'rgba(255, 255, 255, 0)',
+                    borderWidth: 0
+                }]
+            }
+        });
+    };
+
+    createChart(
+        document.getElementById('leadershipChart').getContext('2d'),
+        'Leadership Match', [95, 5], ['#06b6d4', '#e2e8f0']
+    );
+    createChart(
+        document.getElementById('customerChart').getContext('2d'),
+        'Customer Focus Match', [90, 10], ['#06b6d4', '#e2e8f0']
+    );
+    createChart(
+        document.getElementById('technicalChart').getContext('2d'),
+        'Technical Expertise Match', [85, 15], ['#06b6d4', '#e2e8f0']
+    );
+
+    const experienceMappingData = [
+        {
+            reqId: 'req1',
+            requirement: 'Coach, mentor, and develop staff.',
+            experienceIds: ['exp1', 'exp2']
+        },
+        {
+            reqId: 'req2',
+            requirement: 'Manage all aspects of employee lifecycle.',
+            experienceIds: ['exp1']
+        },
+        {
+            reqId: 'req3',
+            requirement: 'Implement new best practices and technologies.',
+            experienceIds: ['exp3', 'exp4']
+        },
+        {
+            reqId: 'req4',
+            requirement: 'Manage high-priority technical issues.',
+            experienceIds: ['exp5']
+        },
+        {
+            reqId: 'req5',
+            requirement: 'Oversee work systems, procedures, and policies.',
+            experienceIds: ['exp6', 'exp7']
+        },
+        {
+            reqId: 'req6',
+            requirement: 'Achieve and sustain core KPI scorecard measurements (CSAT, NPS).',
+            experienceIds: ['exp8']
+        }
+    ];
+
+    const experienceData = [
+        {
+            id: 'exp1',
+            text: 'Coached and developed staff by creating detailed documentation, overseeing new employee onboarding, and providing career development opportunities through training.'
+        },
+        {
+            id: 'exp2',
+            text: 'Achieved staff results for a technology launch by communicating job expectations; planning, monitoring, and appraising job results to ensure a successful deployment to 8,000 users.'
+        },
+        {
+            id: 'exp3',
+            text: 'Leveraged and managed key technology to enhance product operations, identifying and implementing new tools that contributed to $150,000 in annual operational savings.'
+        },
+        {
+            id: 'exp4',
+            text: 'Implemented instrumentation for proactive measures by upgrading self-service tools, which empowered users and led to a significant reduction in support tickets.'
+        },
+        {
+            id: 'exp5',
+            text: 'Ensured a high-quality product experience for Michael Bloomberg and his executive team by providing dedicated support and developing mitigation strategies for potential technology risks.'
+        },
+        {
+            id: 'exp6',
+            text: 'Managed and enforced standardized procedures for user access and provisioning, improving operational efficiency and security for over 300 team members.'
+        },
+        {
+            id: 'exp7',
+            text: 'Demonstrated strong leadership in planning and managing change initiatives by developing clear communication plans for new systems and support policies.'
+        },
+        {
+            id: 'exp8',
+            text: 'Accountable for achieving high customer satisfaction and system reliability for executive-level users by delivering support services for over 150 global meetings annually.'
+        }
+    ];
+
+    const requirementsList = document.getElementById('requirements-list');
+    const experienceList = document.getElementById('experience-list');
+
+    experienceMappingData.forEach(item => {
+        const reqElement = document.createElement('div');
+        reqElement.className = 'p-4 bg-slate-50 border border-slate-200 rounded-lg cursor-pointer hover:bg-cyan-50 hover:border-cyan-400 transition-all';
+        reqElement.textContent = item.requirement;
+        reqElement.dataset.reqId = item.reqId;
+        requirementsList.appendChild(reqElement);
+    });
+
+    experienceData.forEach(item => {
+        const expElement = document.createElement('div');
+        expElement.id = item.id;
+        expElement.className = 'p-4 bg-white border border-slate-200 rounded-lg transition-all duration-300';
+        expElement.textContent = item.text;
+        experienceList.appendChild(expElement);
+    });
+
+    let lastHighlighted = [];
+    requirementsList.addEventListener('click', e => {
+        if (e.target.dataset.reqId) {
+            
+            lastHighlighted.forEach(id => document.getElementById(id)?.classList.remove('highlight'));
+            lastHighlighted = [];
+
+            const mapping = experienceMappingData.find(m => m.reqId === e.target.dataset.reqId);
+            if (mapping) {
+                mapping.experienceIds.forEach(expId => {
+                    const expEl = document.getElementById(expId);
+                    if (expEl) {
+                        expEl.classList.add('highlight');
+                        lastHighlighted.push(expId);
+                    }
+                });
+                
+                const firstElementToHighlight = document.getElementById(mapping.experienceIds[0]);
+                if (firstElementToHighlight) {
+                     firstElementToHighlight.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+            }
+        }
+    });
+
+    const timelineData = [
+        {
+            role: "Product Operations Specialist",
+            date: "Aug 2021 - Nov 2024",
+            bullets: [
+                "Leveraged and managed key technology to enhance product operations, identifying and implementing new tools that contributed to $150,000 in annual operational savings.",
+                "Managed and enforced standardized procedures for user access and provisioning, improving operational efficiency and security for over 300 team members.",
+                "Coached and developed staff by creating detailed documentation, overseeing new employee onboarding, and providing career development opportunities through training."
+            ]
+        },
+        {
+            role: "Technical Support Lead Executive",
+            date: "May 2017 - Aug 2021",
+            bullets: [
+                "Ensured a high-quality product experience for Michael Bloomberg and his executive team by providing dedicated support and developing mitigation strategies for potential technology risks.",
+                "Accountable for achieving high customer satisfaction and system reliability for executive-level users by delivering support services for over 150 global meetings annually.",
+                "Achieved staff results for a technology launch by communicating job expectations; planning, monitoring, and appraising job results to ensure a successful deployment to 8,000 users."
+            ]
+        },
+        {
+            role: "Senior IT Support Engineer",
+            date: "May 2013 - May 2017",
+            bullets: [
+                "Demonstrated advanced problem-solving skills by resolving complex technical issues for a 18,000-person user base, contributing to product stability.",
+                "Identified and implemented process improvements within incident management, leading to improved response times and the consistent meeting of service level agreements.",
+                "Implemented instrumentation for proactive measures by upgrading self-service tools, which empowered users and led to a significant reduction in support tickets."
+            ]
+        }
+    ];
+
+    const timelineContainer = document.getElementById('career-timeline-container');
+    timelineData.forEach((item, index) => {
+        const isLeft = index % 2 === 0;
+        const timelineItem = document.createElement('div');
+        timelineItem.className = `relative mb-8 w-full flex ${isLeft ? 'justify-start' : 'justify-end'}`;
+
+        const contentWrapper = document.createElement('div');
+        contentWrapper.className = `w-1/2 ${isLeft ? 'pl-8' : 'pr-8 text-right'}`;
+
+        const dot = document.createElement('div');
+        dot.className = 'absolute top-1 w-4 h-4 bg-cyan-600 rounded-full z-10 transform -translate-y-1/2 ' + (isLeft ? 'left-1/2 -translate-x-1/2' : 'left-1/2 -translate-x-1/2');
+        
+        timelineItem.appendChild(dot);
+
+        const card = document.createElement('div');
+        card.className = 'bg-white p-4 rounded-lg shadow-md cursor-pointer';
+        card.innerHTML = `
+            <p class="font-bold text-slate-800">${item.role}</p>
+            <p class="text-sm text-slate-500 mb-2">${item.date}</p>
+        `;
+
+        const content = document.createElement('div');
+        content.className = 'timeline-item-content text-left';
+        content.innerHTML = `
+            <ul class="list-disc list-inside mt-2 space-y-1 text-slate-600 text-sm">
+                ${item.bullets.map(b => `<li>${b}</li>`).join('')}
+            </ul>
+        `;
+        
+        card.appendChild(content);
+        contentWrapper.appendChild(card);
+        timelineItem.appendChild(contentWrapper);
+        timelineContainer.appendChild(timelineItem);
+        
+        card.addEventListener('click', () => {
+            if (content.style.maxHeight) {
+                content.style.maxHeight = null;
+            } else {
+                content.style.maxHeight = content.scrollHeight + "px";
+            }
+        });
+    });
+
+    const skillsData = [
+        {
+            title: "Certifications",
+            items: ["Project Management Professional (PMP)", "ITIL v4", "Google AI Essentials", "Certified Scrum Product Owner (CSPO)"]
+        },
+        {
+            title: "Core Competencies",
+            items: ["Vendor Relations", "User Analysis", "Risk Mitigation", "SaaS Implementation", "Stakeholder Collaboration"]
+        },
+        {
+            title: "Tools & Platforms",
+            items: ["Jira", "Slack", "Google Workspace", "Microsoft Office", "Miro"]
+        },
+        {
+            title: "Methodologies",
+            items: ["Agile", "Scrum", "ITIL"]
+        }
+    ];
+
+    const skillsGrid = document.getElementById('skills-grid');
+    skillsData.forEach(skillCategory => {
+        const card = document.createElement('div');
+        card.className = 'bg-slate-50 p-6 rounded-lg border border-slate-200';
+        let itemsHtml = skillCategory.items.map(item => `<li class="text-slate-600">${item}</li>`).join('');
+        card.innerHTML = `
+            <h4 class="font-bold text-lg text-slate-800 mb-3">${skillCategory.title}</h4>
+            <ul class="space-y-2 list-none">${itemsHtml}</ul>
+        `;
+        skillsGrid.appendChild(card);
+    });
+
+});
+</script>
+
+</body>
+</html>
